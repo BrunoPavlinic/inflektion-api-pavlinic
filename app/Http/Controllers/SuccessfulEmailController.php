@@ -64,4 +64,37 @@ class SuccessfulEmailController extends Controller
         
         return response()->json(['message' => 'Email deleted successfully']);
     }
+    
+    /**
+     * Create a new successful email record
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'affiliate_id' => 'required|integer',
+            'envelope' => 'required|string',
+            'from' => 'required|string|max:255',
+            'subject' => 'required|string',
+            'dkim' => 'nullable|string|max:255',
+            'SPF' => 'nullable|string|max:255',
+            'spam_score' => 'nullable|numeric',
+            'email' => 'required|string',
+            'raw_text' => 'nullable|string',
+            'sender_ip' => 'nullable|string|max:50',
+            'to' => 'required|string',
+            'timestamp' => 'required|integer'
+        ]);
+
+        $email = SuccessfulEmail::create($validated);
+        
+        // Parse and save raw text if email content is provided
+        if (!empty($email->email) && empty($email->raw_text)) {
+            $email->parseAndSaveRawText();
+        }
+        
+        return response()->json($email, 201);
+    }
 } 

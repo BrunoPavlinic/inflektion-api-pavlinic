@@ -34,4 +34,5 @@ Route::middleware(['auth:sanctum', 'ability:app'])->group( function () {
     Route::get('/successful-emails/{id}', [SuccessfulEmailController::class, 'show']);
     Route::put('/successful-emails/{id}', [SuccessfulEmailController::class, 'update']);
     Route::delete('/successful-emails/{id}', [SuccessfulEmailController::class, 'destroy']);
+    Route::post('/successful-emails', [SuccessfulEmailController::class, 'store']);
 });
