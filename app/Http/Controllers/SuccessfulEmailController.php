@@ -88,12 +88,12 @@ class SuccessfulEmailController extends Controller
             'timestamp' => 'required|integer'
         ]);
 
-        $email = SuccessfulEmail::create($validated);
-        
-        // Parse and save raw text if email content is provided
-        if (!empty($email->email) && empty($email->raw_text)) {
-            $email->parseAndSaveRawText();
+        if (empty($validated['raw_text'])) {    
+            $validated['raw_text'] = "";
         }
+
+        $email = SuccessfulEmail::create($validated);
+        $email->parseAndSaveRawText();
         
         return response()->json($email, 201);
     }
