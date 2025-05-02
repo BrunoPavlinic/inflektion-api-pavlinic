@@ -50,6 +50,10 @@ class SuccessfulEmail extends Model
         $parser = new MailMimeParser();
         $message = $parser->parse($this->email, false);
         $this->raw_text = $message->getTextContent();
+
+        if (empty($this->raw_text)) {
+            $this->raw_text = "";
+        }
         
         return $this->save();
     }
