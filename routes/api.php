@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Auth\LoginRegisterLogoutController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\SuccessfulEmailController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,10 @@ Route::controller(LoginRegisterLogoutController::class)->group(function() {
 Route::middleware(['auth:sanctum', 'ability:app'])->group( function () {
     Route::post('/logout', [LoginRegisterLogoutController::class, 'logout']);
     Route::get('/getUserInfo', [UserController::class, 'getUserInfo']);
+
+    // Successful Emails routes
+    Route::get('/successful-emails', [SuccessfulEmailController::class, 'index']);
+    Route::get('/successful-emails/{id}', [SuccessfulEmailController::class, 'show']);
+    Route::put('/successful-emails/{id}', [SuccessfulEmailController::class, 'update']);
+    Route::delete('/successful-emails/{id}', [SuccessfulEmailController::class, 'destroy']);
 });
