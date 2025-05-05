@@ -70,4 +70,5 @@ php artisan serve
 You will need to generate the application key. You can achieve this by going on the http://localhost:8000/ and clicking on the key generation button.
 
 ## Test the API using the inflektion-api-pavlinic.postman_collection.json POSTMAN collection
+This collection is located in the root folder of the project.
 Login request has an email and password field. Use the email and password from the user you created in the previous step.
